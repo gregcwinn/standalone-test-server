@@ -1,7 +1,6 @@
 (ns standalone-test-server.core-test
   (:require [clojure.test :refer :all]
             [standalone-test-server.core :refer :all]
-            [standalone-test-server.query :refer :all]
             [clj-http.client :as http])
   (:import [java.io ByteArrayInputStream]))
 
