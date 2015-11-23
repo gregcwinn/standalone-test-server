@@ -115,7 +115,7 @@
                             "test" "value"}))))))
 
 (deftest future-integration
-  (let [[get-requests endpoint] (recording-endpoint)]
+  (let [[get-requests endpoint] (recording-endpoint {:request-count 4})]
     (with-standalone-server [ss (standalone-server endpoint)]
       (http/post "http://localhost:4334/endpoint?a=b"
                  {:headers {:content-type "application/json"}
@@ -128,7 +128,7 @@
       (http/get "http://localhost:4334/not_endpoint?c=d"
                  {})
       (is (= ["{\"test\":\"value\"}" "test=value&second_test=second_value"]
-             (->> get-requests
+             (->> (get-requests)
                   (with-body-key-subset #{"test"})
                   (with-method :post)
                   (map :body)))))))
